@@ -41,6 +41,10 @@ public class StockItemController {
         public void actionPerformed(ActionEvent e) {
             try {
                 String itemCode = theView.getItemCode();
+                if (!itemCode.matches("[a-zA-Z0-9]+")) {
+                    theView.displayError("Invalid input. Please enter a valid alphanumeric item code.");
+                    return; // Exit the method if the item code is invalid
+                }
                 String batchCode = String.valueOf(theView.getBatchCode());
                 Product selectedProduct = theView.getSelectedProduct(); // Retrieve selected product from dropdown
                 Integer quantityInStock = Integer.parseInt(theView.getQuantityInStock().getText());
@@ -53,8 +57,13 @@ public class StockItemController {
                     return;
                 }
 
-                stockItemRepository.addBatchItems(batchCode, itemCode, selectedProduct.getProductName(), quantityInStock, manufactureDate, expiryDate, batchDate);
-                theView.displaySuccessMessage("Batch item added successfully for product: " + selectedProduct.getProductName());
+                try {
+                    stockItemRepository.addBatchItems(batchCode, itemCode, selectedProduct.getProductName(), quantityInStock, manufactureDate, expiryDate, batchDate);
+                    theView.displaySuccessMessage("Batch item added successfully for product: " + selectedProduct.getProductName());
+                } catch (Exception ex) {
+                    theView.displayError("An error occurred while adding the item: " + ex.getMessage());
+                }
+
             } catch (NumberFormatException ex) {
                 theView.displayError("Invalid input. Please enter valid numbers.");
             }
