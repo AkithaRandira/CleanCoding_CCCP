@@ -139,7 +139,7 @@ public class Bill  {
         sb.append("Item:\n");
         sb.append(String.format("%-10s %-20s %-10s %-10s %-10s\n", "ItemCode", "ItemName", "Quantity", "Unit Price", "Total Price"));
         for (BillItem item : billItems) {
-            sb.append(String.format("%-10d %-20s %-10d %-10.2f %-10.2f\n", item.getItemCode(), item.getItemName(), item.getQuantity(), item.getUnitPrice(), item.getTotalPrice()));
+            sb.append(String.format("%-10s %-20s %-10d %-10.2f %-10.2f\n", item.getItemCode(), item.getItemName(), item.getQuantity(), item.getUnitPrice(), item.getTotalPrice()));
         }
         sb.append("\n");
         sb.append("Total Quantities sold: ").append(totalQuantitiesSold).append("\n");

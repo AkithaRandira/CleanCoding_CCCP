@@ -17,14 +17,14 @@ public class ItemDetailsService {
 
     }
 
-    public Item fetchItemDetails(int itemCode) {
+    public Item fetchItemDetails(String itemCode) {
         Item item = null;
         String query = "SELECT itemcode, itemdescription, unitprice, productid FROM item WHERE itemcode = ?";
 
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setInt(1, itemCode);
+            pstmt.setString(1, itemCode);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {

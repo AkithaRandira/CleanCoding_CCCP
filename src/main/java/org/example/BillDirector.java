@@ -50,9 +50,11 @@ public class BillDirector implements BillDirectorInterface {
     @Override
     public void addItem() {
         try {
-            String itemCode = billGraphicalUnitInterfaceService.getTfItemCode().getText(); // Changed to String
+            String itemCode = billGraphicalUnitInterfaceService.getTfItemCode().getText(); // Getting itemCode as String
             int quantity = Integer.parseInt(billGraphicalUnitInterfaceService.getTfQuantity().getText());
-            Item item = itemDetailsService.fetchItemDetails(Integer.parseInt(itemCode));
+
+            // Fetching item details using itemCode as String
+            Item item = itemDetailsService.fetchItemDetails(itemCode);
 
             if (item != null) {
                 Command addItemCommand = new AddItemCommand(this, item, quantity);
@@ -68,13 +70,13 @@ public class BillDirector implements BillDirectorInterface {
 
     @Override
     public void addItemToBill(Item item, int quantity) {
-        String itemCode = String.valueOf(item.getItemCode()); // Make sure this is a String
+        String itemCode = item.getItemCode(); // Directly use itemCode as String
         String itemName = item.getProduct().getProductName();
         double totalPrice = item.getUnitPrice() * quantity;
         totalQuantitiesSold += quantity;
         subTotal += totalPrice;
 
-        // Passing itemCode as a String
+        // Creating a BillItem with itemCode as String
         BillItem billItem = new BillItem(itemCode, itemName, quantity, item.getUnitPrice(), totalPrice, item);
         billItems.add(billItem);
         addItemToPanel(billItem);
@@ -110,7 +112,7 @@ public class BillDirector implements BillDirectorInterface {
     public void removeItemFromBill(String itemCode, JPanel itemPanel) {
         BillItem itemToRemove = null;
         for (BillItem item : billItems) {
-            if (item.getItemCode().equals(itemCode)) { // Use .equals() for String comparison
+            if (item.getItemCode().equals(itemCode)) { // Using .equals() for String comparison
                 itemToRemove = item;
                 break;
             }
@@ -127,15 +129,14 @@ public class BillDirector implements BillDirectorInterface {
 
     @Override
     public void removeItemFromBill(int itemCode, JPanel itemPanel) {
-        removeItemFromBill(String.valueOf(itemCode), itemPanel);
+        removeItemFromBill(String.valueOf(itemCode), itemPanel); // Converting int to String if needed
     }
-
 
     @Override
     public void removeItemFromBill(String itemCode, int quantity) {
         BillItem itemToRemove = null;
         for (BillItem item : billItems) {
-            if (item.getItemCode().equals(itemCode)) { // Use .equals() for String comparison
+            if (item.getItemCode().equals(itemCode)) { // Using .equals() for String comparison
                 itemToRemove = item;
                 break;
             }

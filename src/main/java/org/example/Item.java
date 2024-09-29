@@ -10,31 +10,31 @@ import java.util.List;
 public class Item {
     List<Observer> observers=new ArrayList<Observer>();
     private static final int SHELF_SIZE = 20;
-    private Integer itemCode;
+    private String itemCode;
     private String itemDescription;
     private double unitPrice;
     private Integer quantityOnShelf;
     private Product product;
     public Item() {}
 
-    public Item(Integer itemCode, String itemDescription, double unitPrice) {
+    public Item(String itemCode, String itemDescription, double unitPrice) {
         this.itemCode=itemCode;
         this.itemDescription=itemDescription;
         this.unitPrice=unitPrice;
     }
 
-    public Item(Integer itemCode, String itemDescription, double unitPrice, Product product) {
+    public Item(String itemCode, String itemDescription, double unitPrice, Product product) {
         this.itemCode=itemCode;
         this.itemDescription=itemDescription;
         this.unitPrice=unitPrice;
         this.product=product;
 
     }
-    public Integer getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(Integer itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 
