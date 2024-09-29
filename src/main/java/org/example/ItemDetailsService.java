@@ -1,0 +1,45 @@
+package org.example;
+
+import database.Database;
+import database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ItemDetailsService {
+    ProductDetailsService productDetailsService;
+
+    public ItemDetailsService(ProductDetailsService productDetailsService) {
+        this.productDetailsService = productDetailsService;
+
+
+    }
+
+    public Item fetchItemDetails(int itemCode) {
+        Item item = null;
+        String query = "SELECT itemcode, itemdescription, unitprice, productid FROM item WHERE itemcode = ?";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, itemCode);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Integer productId = rs.getInt("productid");
+                    String itemDescription = rs.getString("itemdescription");
+                    double unitPrice = rs.getDouble("unitprice");
+                    Product product = productDetailsService.fetchProductDetails(productId);
+
+                    item = new Item(itemCode, itemDescription, unitPrice, product);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
+}
