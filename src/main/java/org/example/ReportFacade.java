@@ -29,7 +29,7 @@ public class ReportFacade {
     }
 
     public void generateBillReport() {
-        Report report = new org.example.Reports.BillReport();
+        Report report = new Reports.BillReport();
         report.reportGenerator();
     }
 }

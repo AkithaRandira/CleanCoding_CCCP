@@ -1,5 +1,7 @@
-package org.example.Reports;
+package Reports;
 
+import java.util.ArrayList;
+import org.example.Report;
 import org.example.Bill;
 import org.example.BillIterator;
 import org.example.BillRepository;
