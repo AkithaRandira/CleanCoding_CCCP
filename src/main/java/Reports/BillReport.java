@@ -1,14 +1,11 @@
 package Reports;
 
 import java.util.ArrayList;
-import org.example.Report;
-import org.example.Bill;
-import org.example.BillIterator;
-import org.example.BillRepository;
-import org.example.Report;
+import core.Report;
+import core.Bill;
+import core.BillIterator;
+import core.BillRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class BillReport extends Report  {

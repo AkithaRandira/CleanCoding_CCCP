@@ -1,6 +1,8 @@
 package Controller;
 
-import org.example.*;
+import core.Customer;
+import core.CustomerFactory;
+import core.CustomerRepository;
 import View.CustomerView;
 
 import java.awt.event.ActionEvent;

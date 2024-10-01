@@ -1,8 +1,8 @@
 package Reports;
 
-import org.example.Report;
-import org.example.Stock;
-import org.example.StockIterator;
+import core.Report;
+import core.Stock;
+import core.StockIterator;
 
 import java.util.ArrayList;
 import java.util.List;

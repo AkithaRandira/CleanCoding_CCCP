@@ -1,16 +1,10 @@
 package View;
-import org.example.*;
+import core.Product;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 public class ItemsOnShelfView extends JFrame {
 

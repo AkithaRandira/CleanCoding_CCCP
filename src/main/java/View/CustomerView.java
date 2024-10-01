@@ -1,10 +1,9 @@
 package View;
 
-import org.example.*;
+import core.Customer;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerView extends JFrame {

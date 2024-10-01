@@ -3,9 +3,9 @@ package Reports;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.Report;
-import org.example.Stock;
-import org.example.StockIterator;
+import core.Report;
+import core.Stock;
+import core.StockIterator;
 
 public class ReOrderReport extends Report {
 

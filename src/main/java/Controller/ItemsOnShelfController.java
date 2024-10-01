@@ -1,6 +1,9 @@
 package Controller;
 
-import org.example.*;
+import core.Item;
+import core.ItemRepository;
+import core.Product;
+import core.ProductIterator;
 import View.ItemsOnShelfView;
 
 import java.awt.event.ActionEvent;

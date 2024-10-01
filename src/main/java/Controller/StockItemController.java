@@ -1,9 +1,9 @@
 package Controller;
 
-import org.example.StockItemRepository;
-import org.example.Stock;
-import org.example.Product;
-import org.example.ProductRepository; // Import ProductRepository
+import core.StockItemRepository;
+import core.Stock;
+import core.Product;
+import core.ProductRepository; // Import ProductRepository
 import View.StockItemView;
 
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
 package Reports;
 
-import org.example.Report;
+import core.Report;
 
 public class EndOfDayReport extends Report {
     @Override

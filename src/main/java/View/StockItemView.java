@@ -3,7 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.List;
-import org.example.Product;
+import core.Product;
 
 public class StockItemView extends JFrame {
 

@@ -3,7 +3,7 @@ package Reports;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.*;
+import core.*;
 
 public class SalesReport extends Report {
     protected List<Bill> bills = new ArrayList<>();

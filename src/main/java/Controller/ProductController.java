@@ -1,6 +1,6 @@
 package Controller;
 
-import org.example.*;
+import core.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
