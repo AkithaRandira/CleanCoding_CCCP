@@ -1,0 +1,247 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ItemsOnShelfController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Controller</a>
+</div>
+
+<h1>Coverage Summary for Class: ItemsOnShelfController (Controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ItemsOnShelfController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ItemsOnShelfController$AddItemListener</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72.7%
+  </span>
+  <span class="absValue">
+    (8/11)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ItemsOnShelfController$RestockShelfListener</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    73.3%
+  </span>
+  <span class="absValue">
+    (22/30)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Controller;
+&nbsp;
+&nbsp;import core.Item;
+&nbsp;import core.ItemRepository;
+&nbsp;import core.Product;
+&nbsp;import core.ProductIterator;
+&nbsp;import View.ItemsOnShelfView;
+&nbsp;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="fc">&nbsp;public class ItemsOnShelfController {</b>
+&nbsp;
+&nbsp;    private ItemsOnShelfView theView;
+&nbsp;    private Item theModel;
+&nbsp;    private ItemRepository itemRepository;
+&nbsp;
+<b class="fc">&nbsp;    public ItemsOnShelfController(ItemsOnShelfView theView, Item theModel,ItemRepository itemRepository) {</b>
+<b class="fc">&nbsp;        this.theView = theView;</b>
+<b class="fc">&nbsp;        this.theModel = theModel;</b>
+<b class="fc">&nbsp;        this.itemRepository=itemRepository;</b>
+&nbsp;
+<b class="fc">&nbsp;        initializeProducts();</b>
+<b class="fc">&nbsp;        theView.addItemsOnShelfListener(new AddItemListener());</b>
+<b class="fc">&nbsp;        theView.addRestockShelfListener(new RestockShelfListener());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initializeProducts() {
+<b class="fc">&nbsp;        ProductIterator iterator = new ProductIterator();</b>
+<b class="fc">&nbsp;        List&lt;Product&gt; products = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        while (iterator.hasNext()) {</b>
+<b class="fc">&nbsp;            products.add((Product) iterator.next());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        theView.setProducts(products);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    class RestockShelfListener implements ActionListener {</b>
+&nbsp;        public void actionPerformed(ActionEvent e) {
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                itemRepository.reStockShelf();</b>
+<b class="nc">&nbsp;                theView.displaySuccessMessage(&quot;Shelf restocked successfully!&quot;);</b>
+<b class="nc">&nbsp;            } catch (Exception ex) {</b>
+<b class="nc">&nbsp;                ex.printStackTrace();</b>
+<b class="nc">&nbsp;                theView.displayErrorMessage(&quot;Error restocking shelf: &quot; + ex.getMessage());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    class AddItemListener implements ActionListener {</b>
+&nbsp;        public void actionPerformed(ActionEvent e) {
+&nbsp;            java.sql.Date expiryDate;
+&nbsp;            java.sql.Date manufactureDate;
+&nbsp;
+&nbsp;            try {
+<b class="fc">&nbsp;                int itemCode = Integer.parseInt(theView.getItemCode());</b>
+<b class="fc">&nbsp;                String itemDescription = theView.getItemDescription();</b>
+<b class="fc">&nbsp;                double unitPrice = Double.parseDouble(theView.getUnitPrice());</b>
+<b class="fc">&nbsp;                int quantityOnShelf = Integer.parseInt(theView.getQuantityOnShelf());</b>
+<b class="fc">&nbsp;                Product product = new Product(Integer.parseInt(theView.getProductID()), &quot;&quot;);</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;                itemRepository.addItemsOnShelf(itemCode, itemDescription, unitPrice, quantityOnShelf,product);</b>
+<b class="fc">&nbsp;                theView.displaySuccessMessage(&quot;Item added successfully!&quot;);</b>
+<b class="nc">&nbsp;            } catch (Exception ex) {</b>
+<b class="nc">&nbsp;                ex.printStackTrace();</b>
+<b class="nc">&nbsp;                theView.displayErrorMessage(&quot;Error adding item: &quot; + ex.getMessage());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

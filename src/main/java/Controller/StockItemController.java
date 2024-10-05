@@ -3,7 +3,7 @@ package Controller;
 import core.StockItemRepository;
 import core.Stock;
 import core.Product;
-import core.ProductRepository; // Import ProductRepository
+import core.ProductRepository;
 import View.StockItemView;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ public class StockItemController {
     private StockItemView theView;
     private Stock theModel;
     private StockItemRepository stockItemRepository;
-    private ProductRepository productRepository; // ProductRepository to fetch products
+    private ProductRepository productRepository;
 
     public StockItemController(StockItemView theView, Stock theModel, StockItemRepository stockItemRepository, ProductRepository productRepository) {
         this.theView = theView;
@@ -24,15 +24,15 @@ public class StockItemController {
         this.stockItemRepository = stockItemRepository;
         this.productRepository = productRepository;
 
-        // Populate the item name dropdown
+
         initializeProductDropdown();
 
-        // Add action listener for the "Add" button
+
         this.theView.addBatchItemListener(new AddBatchItemListener());
     }
 
-    // Populate item name dropdown with existing products
-    private void initializeProductDropdown() {
+
+    public void initializeProductDropdown() {
         List<Product> products = productRepository.getAllProducts();
         theView.setProductDropdown(products); // Assuming setProductDropdown method is in StockItemView
     }
@@ -43,7 +43,7 @@ public class StockItemController {
                 String itemCode = theView.getItemCode();
                 if (!itemCode.matches("[a-zA-Z0-9]+")) {
                     theView.displayError("Invalid input. Please enter a valid alphanumeric item code.");
-                    return; // Exit the method if the item code is invalid
+                    return;
                 }
                 String batchCode = String.valueOf(theView.getBatchCode());
                 Product selectedProduct = theView.getSelectedProduct(); // Retrieve selected product from dropdown

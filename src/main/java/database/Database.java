@@ -8,7 +8,7 @@ public class Database {
     private static volatile Connection databaseConnection = null;
     private static volatile Database databaseInstance = null;
 
-    private Database() { }
+    public Database() { }
 
     public static Database getInstance() {
         if (databaseInstance == null) {

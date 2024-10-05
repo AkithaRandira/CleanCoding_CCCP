@@ -1,0 +1,235 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Stock</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: Stock (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Stock</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71.4%
+  </span>
+  <span class="absValue">
+    (15/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.5%
+  </span>
+  <span class="absValue">
+    (5/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (21/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import java.sql.Date;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class Stock {
+&nbsp;
+<b class="fc">&nbsp;    private List&lt;Observer&gt; observers = new ArrayList&lt;Observer&gt;();</b>
+&nbsp;    private Integer stockItemId;
+&nbsp;
+&nbsp;    private String itemName;
+&nbsp;    private String batchCode; // Changed from Integer to String
+&nbsp;    private String itemCode;  // Changed from Integer to String
+<b class="fc">&nbsp;    private Integer quantityInStock = 0;</b>
+&nbsp;
+&nbsp;    private java.sql.Date expiryDate;
+&nbsp;    private java.sql.Date manufactureDate;
+&nbsp;    private java.sql.Date batchDate;
+&nbsp;
+&nbsp;    private StockItemRepository stockItemRepository;
+&nbsp;
+<b class="nc">&nbsp;    public Stock(Integer stockItemId, String batchCode, String itemName, String itemCode, Integer quantityInStock, Date expiryDate, Date manufactureDate, Date batchDate) {</b>
+<b class="nc">&nbsp;        this.stockItemId = stockItemId;</b>
+<b class="nc">&nbsp;        this.itemName = itemName;</b>
+<b class="nc">&nbsp;        this.batchCode = batchCode;</b>
+<b class="nc">&nbsp;        this.itemCode = itemCode;</b>
+<b class="nc">&nbsp;        this.quantityInStock = quantityInStock;</b>
+<b class="nc">&nbsp;        this.expiryDate = expiryDate;</b>
+<b class="nc">&nbsp;        this.manufactureDate = manufactureDate;</b>
+<b class="nc">&nbsp;        this.batchDate = batchDate;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Stock() {}</b>
+&nbsp;
+&nbsp;    public StockItemRepository getBatchItemRepository() {
+<b class="nc">&nbsp;        return stockItemRepository;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBatchItemRepository(StockItemRepository stockItemRepository) {
+<b class="nc">&nbsp;        this.stockItemRepository = stockItemRepository;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getItemName() {
+<b class="fc">&nbsp;        return itemName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setItemName(String itemName) {
+<b class="fc">&nbsp;        this.itemName = itemName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getBatchCode() { // Updated getter to return String
+<b class="nc">&nbsp;        return batchCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBatchCode(String batchCode) { // Updated setter to accept String
+<b class="fc">&nbsp;        this.batchCode = batchCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getItemCode() { // Updated getter to return String
+<b class="fc">&nbsp;        return itemCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setItemCode(String itemCode) { // Updated setter to accept String
+<b class="fc">&nbsp;        this.itemCode = itemCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getQuantityInStock() {
+<b class="fc">&nbsp;        return quantityInStock;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setQuantityInStock(Integer quantityInStock) {
+<b class="fc">&nbsp;        this.quantityInStock = quantityInStock;</b>
+<b class="fc">&nbsp;        notifyAllObservers();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getExpiryDate() {
+<b class="nc">&nbsp;        return expiryDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setExpiryDate(Date expiryDate) {
+<b class="fc">&nbsp;        this.expiryDate = expiryDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getManufactureDate() {
+<b class="nc">&nbsp;        return manufactureDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setManufactureDate(Date manufactureDate) {
+<b class="fc">&nbsp;        this.manufactureDate = manufactureDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getBatchDate() {
+<b class="nc">&nbsp;        return batchDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBatchDate(Date batchDate) {
+<b class="fc">&nbsp;        this.batchDate = batchDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void checkLowStock() {
+<b class="pc">&nbsp;        if (getQuantityInStock() != null &amp;&amp; getQuantityInStock() &lt; 50) {</b>
+<b class="fc">&nbsp;            notifyAllObservers();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void attach(Observer observer) {
+<b class="fc">&nbsp;        observers.add(observer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void notifyAllObservers() {
+<b class="fc">&nbsp;        for (Observer observer : observers) {</b>
+<b class="fc">&nbsp;            observer.update();</b>
+<b class="pc">&nbsp;            if (quantityInStock &lt; 50) {</b>
+<b class="fc">&nbsp;                observer.lowStockAlert();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

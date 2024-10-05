@@ -21,7 +21,7 @@ public class CustomerController {
 
     }
 
-    class CustomerListener implements ActionListener {
+    public class CustomerListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {

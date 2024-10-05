@@ -1,0 +1,353 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BillDirector</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: BillDirector (core)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BillDirector</td>
+<td class="coverageStat">
+  <span class="percent">
+    30%
+  </span>
+  <span class="absValue">
+    (3/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23.3%
+  </span>
+  <span class="absValue">
+    (24/103)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BillDirector$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (3/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22.9%
+  </span>
+  <span class="absValue">
+    (24/105)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;public class BillDirector implements BillDirectorInterface {
+&nbsp;    private StateContext stateContext;
+&nbsp;    private BillBuilder builder;
+&nbsp;    private Map&lt;String, PaymentStrategy&gt; strategyMap;
+&nbsp;    private int totalQuantitiesSold;
+<b class="fc">&nbsp;    private List&lt;BillItem&gt; billItems = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    private double subTotal = 0.0;</b>
+<b class="fc">&nbsp;    private List&lt;Command&gt; commands = new ArrayList&lt;&gt;();</b>
+&nbsp;    private ItemDetailsService itemDetailsService;
+&nbsp;    private BillSaveService billSaveService;
+&nbsp;
+&nbsp;    private BillGraphicalUnitInterfaceService billGraphicalUnitInterfaceService;
+&nbsp;
+&nbsp;    private CheckStateService checkStateService;
+&nbsp;
+<b class="fc">&nbsp;    public BillDirector(BillBuilder builder, ItemDetailsService itemDetailsService, BillSaveService billSaveService, BillGraphicalUnitInterfaceService billGraphicalUnitInterfaceService, CheckStateService checkStateService) {</b>
+<b class="fc">&nbsp;        this.builder = builder;</b>
+<b class="fc">&nbsp;        this.stateContext = new StateContext();</b>
+<b class="fc">&nbsp;        this.itemDetailsService = itemDetailsService;</b>
+<b class="fc">&nbsp;        this.billSaveService = billSaveService;</b>
+<b class="fc">&nbsp;        this.billGraphicalUnitInterfaceService = billGraphicalUnitInterfaceService;</b>
+<b class="fc">&nbsp;        this.checkStateService = checkStateService;</b>
+<b class="fc">&nbsp;        this.strategyMap = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        strategyMap.put(&quot;Cash&quot;, new CashPayment());</b>
+<b class="fc">&nbsp;        strategyMap.put(&quot;Credit Card&quot;, new CreditCardPayment());</b>
+&nbsp;
+<b class="fc">&nbsp;        billGraphicalUnitInterfaceService.addItemListener(e -&gt; addItem());</b>
+<b class="fc">&nbsp;        billGraphicalUnitInterfaceService.finalizeBillListener(e -&gt; finalizeBill());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;BillItem&gt; getBillItems() {
+<b class="nc">&nbsp;        return billItems;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getSubTotal() {
+<b class="nc">&nbsp;        return subTotal;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addItem() {
+&nbsp;        try {
+<b class="fc">&nbsp;            String itemCode = billGraphicalUnitInterfaceService.getTfItemCode().getText(); // Getting itemCode as String</b>
+<b class="fc">&nbsp;            int quantity = Integer.parseInt(billGraphicalUnitInterfaceService.getTfQuantity().getText());</b>
+&nbsp;
+&nbsp;            // Fetching item details using itemCode as String
+<b class="fc">&nbsp;            Item item = itemDetailsService.fetchItemDetails(itemCode);</b>
+&nbsp;
+<b class="pc">&nbsp;            if (item != null) {</b>
+<b class="fc">&nbsp;                Command addItemCommand = new AddItemCommand(this, item, quantity);</b>
+<b class="fc">&nbsp;                commands.add(addItemCommand);</b>
+<b class="fc">&nbsp;                addItemCommand.execute();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Item with code &quot; + itemCode + &quot; not found.&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (NumberFormatException e) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Invalid input. Please enter valid numbers for item code and quantity.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addItemToBill(Item item, int quantity) {
+<b class="fc">&nbsp;        String itemCode = item.getItemCode(); // Directly use itemCode as String</b>
+<b class="fc">&nbsp;        String itemName = item.getProduct().getProductName();</b>
+<b class="nc">&nbsp;        double totalPrice = item.getUnitPrice() * quantity;</b>
+<b class="nc">&nbsp;        totalQuantitiesSold += quantity;</b>
+<b class="nc">&nbsp;        subTotal += totalPrice;</b>
+&nbsp;
+&nbsp;        // Creating a BillItem with itemCode as String
+<b class="nc">&nbsp;        BillItem billItem = new BillItem(itemCode, itemName, quantity, item.getUnitPrice(), totalPrice, item);</b>
+<b class="nc">&nbsp;        billItems.add(billItem);</b>
+<b class="nc">&nbsp;        addItemToPanel(billItem);</b>
+&nbsp;
+<b class="nc">&nbsp;        billGraphicalUnitInterfaceService.getTfSubtotal().setText(String.format(&quot;%.2f&quot;, subTotal));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addItemToPanel(BillItem billItem) {
+<b class="nc">&nbsp;        JPanel itemPanel = new JPanel();</b>
+<b class="nc">&nbsp;        itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.X_AXIS));</b>
+&nbsp;
+<b class="nc">&nbsp;        JLabel itemLabel = new JLabel(String.format(&quot;Item: %s, Quantity: %d, Unit Price: %.2f, Total Price: %.2f&quot;,</b>
+<b class="nc">&nbsp;                billItem.getItemName(), billItem.getQuantity(), billItem.getUnitPrice(), billItem.getTotalPrice()));</b>
+&nbsp;
+<b class="nc">&nbsp;        JButton removeButton = new JButton(&quot;Remove&quot;);</b>
+<b class="nc">&nbsp;        removeButton.addActionListener(new ActionListener() {</b>
+&nbsp;            @Override
+&nbsp;            public void actionPerformed(ActionEvent e) {
+<b class="nc">&nbsp;                removeItemFromBill(billItem.getItemCode(), itemPanel);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        itemPanel.add(itemLabel);</b>
+<b class="nc">&nbsp;        itemPanel.add(removeButton);</b>
+&nbsp;
+<b class="nc">&nbsp;        billGraphicalUnitInterfaceService.getItemsPanel().add(itemPanel);</b>
+<b class="nc">&nbsp;        billGraphicalUnitInterfaceService.getItemsPanel().revalidate();</b>
+<b class="nc">&nbsp;        billGraphicalUnitInterfaceService.getItemsPanel().repaint();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void removeItemFromBill(String itemCode, JPanel itemPanel) {
+<b class="nc">&nbsp;        BillItem itemToRemove = null;</b>
+<b class="nc">&nbsp;        for (BillItem item : billItems) {</b>
+<b class="nc">&nbsp;            if (item.getItemCode().equals(itemCode)) { // Using .equals() for String comparison</b>
+<b class="nc">&nbsp;                itemToRemove = item;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (itemToRemove != null) {</b>
+<b class="nc">&nbsp;            Command removeItemCommand = new RemoveItemCommand(this, itemToRemove.getItem(), itemToRemove.getQuantity());</b>
+<b class="nc">&nbsp;            removeItemCommand.execute();</b>
+<b class="nc">&nbsp;            commands.add(removeItemCommand);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Item with code &quot; + itemCode + &quot; not found in the bill.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void removeItemFromBill(int itemCode, JPanel itemPanel) {
+<b class="nc">&nbsp;        removeItemFromBill(String.valueOf(itemCode), itemPanel); // Converting int to String if needed</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void removeItemFromBill(String itemCode, int quantity) {
+<b class="nc">&nbsp;        BillItem itemToRemove = null;</b>
+<b class="nc">&nbsp;        for (BillItem item : billItems) {</b>
+<b class="nc">&nbsp;            if (item.getItemCode().equals(itemCode)) { // Using .equals() for String comparison</b>
+<b class="nc">&nbsp;                itemToRemove = item;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (itemToRemove != null) {</b>
+<b class="nc">&nbsp;            billItems.remove(itemToRemove);</b>
+<b class="nc">&nbsp;            totalQuantitiesSold -= quantity;</b>
+<b class="nc">&nbsp;            subTotal -= itemToRemove.getTotalPrice();</b>
+&nbsp;
+<b class="nc">&nbsp;            billGraphicalUnitInterfaceService.getItemsPanel().removeAll();</b>
+<b class="nc">&nbsp;            for (BillItem item : billItems) {</b>
+<b class="nc">&nbsp;                addItemToPanel(item);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            billGraphicalUnitInterfaceService.getItemsPanel().revalidate();</b>
+<b class="nc">&nbsp;            billGraphicalUnitInterfaceService.getItemsPanel().repaint();</b>
+&nbsp;
+<b class="nc">&nbsp;            billGraphicalUnitInterfaceService.getTfSubtotal().setText(String.format(&quot;%.2f&quot;, subTotal));</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Item with code &quot; + itemCode + &quot; not found in the bill.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void finalizeBill() {
+<b class="nc">&nbsp;        stateContext.finalizeBill(this);</b>
+<b class="nc">&nbsp;        checkStateService.checkState();</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            int billSerialNumber = Integer.parseInt(billGraphicalUnitInterfaceService.getTfBillSerialNumber().getText());</b>
+<b class="nc">&nbsp;            double discount = Double.parseDouble(billGraphicalUnitInterfaceService.getTfDiscount().getText());</b>
+<b class="nc">&nbsp;            double cashTendered = Double.parseDouble(billGraphicalUnitInterfaceService.getTfCashTendered().getText());</b>
+<b class="nc">&nbsp;            double netTotal = subTotal - discount;</b>
+<b class="nc">&nbsp;            double changeAmount = cashTendered - netTotal;</b>
+<b class="nc">&nbsp;            String selectedPaymentStrategy = (String) billGraphicalUnitInterfaceService.getPaymentStrategyComboBox().getSelectedItem();</b>
+<b class="nc">&nbsp;            PaymentStrategy strategy = strategyMap.get(selectedPaymentStrategy);</b>
+<b class="nc">&nbsp;            PaymentContext paymentContext = new PaymentContext(strategy);</b>
+<b class="nc">&nbsp;            String customerName = billGraphicalUnitInterfaceService.getCustomerName().getText();</b>
+&nbsp;
+<b class="nc">&nbsp;            Date dateOfBill = new Date();</b>
+&nbsp;
+<b class="nc">&nbsp;            builder.addSerialNumber(billSerialNumber);</b>
+<b class="nc">&nbsp;            builder.addBillItems(billItems);</b>
+<b class="nc">&nbsp;            builder.addSubtotal(subTotal);</b>
+<b class="nc">&nbsp;            builder.addDiscount(discount);</b>
+<b class="nc">&nbsp;            builder.addNetTotal(netTotal);</b>
+<b class="nc">&nbsp;            builder.addCashTendered(cashTendered);</b>
+<b class="nc">&nbsp;            builder.addChangeAmount(changeAmount);</b>
+<b class="nc">&nbsp;            builder.addDateOfBill(dateOfBill);</b>
+<b class="nc">&nbsp;            builder.addTotalQuantitiesSold(totalQuantitiesSold);</b>
+<b class="nc">&nbsp;            builder.addPaymentMethod(selectedPaymentStrategy);</b>
+<b class="nc">&nbsp;            builder.addCustomerName(customerName);</b>
+&nbsp;
+<b class="nc">&nbsp;            Bill bill = builder.getBill();</b>
+<b class="nc">&nbsp;            paymentContext.executeStrategy(bill);</b>
+<b class="nc">&nbsp;            billSaveService.saveBill(bill);</b>
+&nbsp;
+<b class="nc">&nbsp;            billGraphicalUnitInterfaceService.getTfSubtotal().setText(String.format(&quot;Subtotal:&quot;, subTotal));</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Bill added successfully&quot;);</b>
+<b class="nc">&nbsp;            stateContext.processBill(this);</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), &quot;Error Adding bill.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StockItemView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">View</a>
+</div>
+
+<h1>Coverage Summary for Class: StockItemView (View)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockItemView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package View;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.List;
+&nbsp;import core.Product;
+&nbsp;
+&nbsp;public class StockItemView extends JFrame {
+&nbsp;
+<b class="nc">&nbsp;    private JTextField itemCode = new JTextField(20);</b>
+<b class="nc">&nbsp;    private JTextField batchCode = new JTextField(10);</b>
+<b class="nc">&nbsp;    private JComboBox&lt;Product&gt; itemNameDropdown = new JComboBox&lt;&gt;(); // Changed to JComboBox&lt;Product&gt;</b>
+<b class="nc">&nbsp;    private JTextField quantityInStock = new JTextField(10);</b>
+<b class="nc">&nbsp;    private JButton addBatchItem = new JButton(&quot;Add&quot;);</b>
+<b class="nc">&nbsp;    private JTextField expiryDate = new JFormattedTextField(&quot;yyyy-MM-dd&quot;);</b>
+<b class="nc">&nbsp;    private JTextField manufactureDate = new JFormattedTextField(&quot;yyyy-MM-dd&quot;);</b>
+<b class="nc">&nbsp;    private JTextField batchDate = new JFormattedTextField(&quot;yyyy-MM-dd&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;    public StockItemView() {</b>
+<b class="nc">&nbsp;        JPanel batchItemPanel = new JPanel();</b>
+<b class="nc">&nbsp;        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</b>
+<b class="nc">&nbsp;        this.setSize(600, 200);</b>
+<b class="nc">&nbsp;        this.setResizable(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Item Code:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(itemCode);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Item Name:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(itemNameDropdown);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Batch Code:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(batchCode);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Quantity in Stock:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(quantityInStock);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Expiry Date:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(expiryDate);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Manufacture Date:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(manufactureDate);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Batch Date:&quot;));</b>
+<b class="nc">&nbsp;        batchItemPanel.add(batchDate);</b>
+&nbsp;
+<b class="nc">&nbsp;        batchItemPanel.add(addBatchItem);</b>
+<b class="nc">&nbsp;        batchItemPanel.add(new JLabel(&quot;Batch Item:&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;        this.add(batchItemPanel);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void setProductDropdown(List&lt;Product&gt; products) {
+<b class="nc">&nbsp;        for (Product product : products) {</b>
+<b class="nc">&nbsp;            itemNameDropdown.addItem(product);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getItemCode() {
+<b class="nc">&nbsp;        return itemCode.getText();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getBatchCode() {
+<b class="nc">&nbsp;        return Integer.parseInt(batchCode.getText());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Product getSelectedProduct() { // Updated method to retrieve selected product
+<b class="nc">&nbsp;        return (Product) itemNameDropdown.getSelectedItem();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JTextField getQuantityInStock() {
+<b class="nc">&nbsp;        return quantityInStock;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getExpiryDate() {
+<b class="nc">&nbsp;        return expiryDate.getText();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getManufactureDate(){
+<b class="nc">&nbsp;        return manufactureDate.getText();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getBatchDate(){
+<b class="nc">&nbsp;        return batchDate.getText();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void displaySuccessMessage(String message) {
+<b class="nc">&nbsp;        JOptionPane.showMessageDialog(this, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void displayError(String errorMessage) {
+<b class="nc">&nbsp;        JOptionPane.showMessageDialog(this, errorMessage);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addBatchItemListener(ActionListener listenForAddButton) {
+<b class="nc">&nbsp;        addBatchItem.addActionListener(listenForAddButton);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

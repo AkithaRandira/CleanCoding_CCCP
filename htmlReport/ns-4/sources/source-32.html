@@ -1,0 +1,125 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StockInterface</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: StockInterface (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockInterface</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    14.3%
+  </span>
+  <span class="absValue">
+    (1/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import Controller.StockItemController;
+&nbsp;import View.StockItemView;
+&nbsp;import database.Database;
+&nbsp;
+<b class="fc">&nbsp;public class StockInterface implements PointOfSales {</b>
+&nbsp;    public void getInterface() {
+<b class="nc">&nbsp;        StockItemView view = new StockItemView();</b>
+<b class="nc">&nbsp;        Stock model = new Stock();</b>
+&nbsp;
+&nbsp;        // Assuming you already have a method to get an instance of your database
+<b class="nc">&nbsp;        StockItemRepository stockItemRepository = new StockItemRepository(Database.getInstance());</b>
+<b class="nc">&nbsp;        ProductRepository productRepository = new ProductRepository();</b>
+&nbsp;
+&nbsp;        // Ensure the correct number and type of arguments are passed
+<b class="nc">&nbsp;        new StockItemController(view, model, stockItemRepository, productRepository);</b>
+&nbsp;
+<b class="nc">&nbsp;        view.setVisible(true);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

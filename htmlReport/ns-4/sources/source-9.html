@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BillSaveService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: BillSaveService (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BillSaveService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    2.7%
+  </span>
+  <span class="absValue">
+    (1/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import database.Database;
+&nbsp;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.PreparedStatement;
+&nbsp;import java.sql.SQLException;
+&nbsp;
+<b class="fc">&nbsp;public class BillSaveService implements BillDatabaseServiceInterface {</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void saveBill(Bill bill) {
+&nbsp;
+<b class="nc">&nbsp;        String billSQL = &quot;INSERT INTO bill (billSerialNumber, dateOfBill, subTotal, discount, netTotal, cashTendered, changeAmount, totalQuantitiesSold,paymentMethod,customername) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?,?)&quot;;</b>
+<b class="nc">&nbsp;        String billItemSQL = &quot;INSERT INTO billItem (billSerialNumber, itemCode, qtyperitem, priceperitem, totalamount) VALUES (?, ?, ?, ?, ?)&quot;;</b>
+<b class="nc">&nbsp;        String updateItemQty = &quot;UPDATE item SET qtyonshelf = qtyonshelf - ? WHERE itemcode = ?&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        try (Connection conn = Database.connect();</b>
+<b class="nc">&nbsp;             PreparedStatement billStmt = conn.prepareStatement(billSQL);</b>
+<b class="nc">&nbsp;             PreparedStatement billItemStmt = conn.prepareStatement(billItemSQL);</b>
+<b class="nc">&nbsp;             PreparedStatement updateItemStmt = conn.prepareStatement(updateItemQty)) {</b>
+&nbsp;
+<b class="nc">&nbsp;            conn.setAutoCommit(false);</b>
+&nbsp;
+&nbsp;            // Insert bill
+<b class="nc">&nbsp;            billStmt.setInt(1, bill.getBillSerialNumber());</b>
+<b class="nc">&nbsp;            billStmt.setDate(2, new java.sql.Date(bill.getDateOfBill().getTime()));</b>
+<b class="nc">&nbsp;            billStmt.setDouble(3, bill.getSubTotal());</b>
+<b class="nc">&nbsp;            billStmt.setDouble(4, bill.getDiscount());</b>
+<b class="nc">&nbsp;            billStmt.setDouble(5, bill.getNetTotal());</b>
+<b class="nc">&nbsp;            billStmt.setDouble(6, bill.getCashTendered());</b>
+<b class="nc">&nbsp;            billStmt.setDouble(7, bill.getChangeAmount());</b>
+<b class="nc">&nbsp;            billStmt.setInt(8,bill.getTotalQuantitiesSold());</b>
+<b class="nc">&nbsp;            billStmt.setString(9, bill.getPaymentMethod());</b>
+<b class="nc">&nbsp;            billStmt.setString(10, bill.getCustomerName());</b>
+<b class="nc">&nbsp;            billStmt.executeUpdate();</b>
+&nbsp;
+&nbsp;            // Insert bill items
+<b class="nc">&nbsp;            for (BillItem item : bill.getBillItems()) {</b>
+<b class="nc">&nbsp;                billItemStmt.setInt(1, bill.getBillSerialNumber());</b>
+<b class="nc">&nbsp;                billItemStmt.setInt(2, Integer.parseInt(item.getItemCode()));</b>
+<b class="nc">&nbsp;                billItemStmt.setInt(3, item.getQuantity());</b>
+<b class="nc">&nbsp;                billItemStmt.setDouble(4, item.getUnitPrice());</b>
+<b class="nc">&nbsp;                billItemStmt.setDouble(5, item.getTotalPrice());</b>
+<b class="nc">&nbsp;                billItemStmt.executeUpdate();</b>
+&nbsp;
+&nbsp;                // Update item quantity on shelf after each bill item is inserted
+<b class="nc">&nbsp;                updateItemStmt.setInt(1, item.getQuantity());</b>
+<b class="nc">&nbsp;                updateItemStmt.setInt(2, Integer.parseInt(item.getItemCode()));</b>
+<b class="nc">&nbsp;                updateItemStmt.executeUpdate();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            conn.commit();</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                Connection conn = Database.connect();</b>
+<b class="nc">&nbsp;                conn.rollback();</b>
+<b class="nc">&nbsp;            } catch (SQLException rollbackEx) {</b>
+<b class="nc">&nbsp;                rollbackEx.printStackTrace();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

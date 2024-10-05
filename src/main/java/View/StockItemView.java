@@ -9,7 +9,7 @@ public class StockItemView extends JFrame {
 
     private JTextField itemCode = new JTextField(20);
     private JTextField batchCode = new JTextField(10);
-    private JComboBox<Product> itemNameDropdown = new JComboBox<>(); // Changed to JComboBox<Product>
+    private JComboBox<Product> itemNameDropdown = new JComboBox<>();
     private JTextField quantityInStock = new JTextField(10);
     private JButton addBatchItem = new JButton("Add");
     private JTextField expiryDate = new JFormattedTextField("yyyy-MM-dd");

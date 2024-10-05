@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ConcreteBillBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: ConcreteBillBuilder (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConcreteBillBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class ConcreteBillBuilder implements BillBuilder {
+&nbsp;    private Bill bill;
+&nbsp;
+<b class="fc">&nbsp;    public ConcreteBillBuilder() {</b>
+<b class="fc">&nbsp;        this.bill = new Bill();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addSerialNumber(Integer billSerialNumber) {
+<b class="fc">&nbsp;        bill.setBillSerialNumber(billSerialNumber);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addBillItems(List&lt;BillItem&gt; billItems) {
+<b class="fc">&nbsp;        bill.setBillItems(billItems);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addSubtotal(double subTotal) {
+<b class="fc">&nbsp;        bill.setSubTotal(subTotal);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addDiscount(double discount) {
+<b class="fc">&nbsp;        bill.setDiscount(discount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addNetTotal(double netTotal) {
+<b class="fc">&nbsp;        bill.setNetTotal(netTotal);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addCashTendered(double cashTendered) {
+<b class="fc">&nbsp;        bill.setCashTendered(cashTendered);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addChangeAmount(double changeAmount) {
+<b class="fc">&nbsp;        bill.setChangeAmount(changeAmount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addDateOfBill(Date dateOfBill) {
+<b class="fc">&nbsp;        bill.setDateOfBill(dateOfBill);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addTotalQuantitiesSold(int totalQuantitiesSold) {
+<b class="fc">&nbsp;        bill.setTotalQuantitiesSold(totalQuantitiesSold);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addPaymentMethod(String paymentMethod) {
+&nbsp;
+<b class="fc">&nbsp;        bill.setPaymentMethod(paymentMethod);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addCustomerName(String customerName) {
+<b class="fc">&nbsp;        bill.setCustomerName(customerName);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Bill getBill() {
+<b class="fc">&nbsp;        return this.bill;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

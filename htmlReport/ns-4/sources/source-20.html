@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Product</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: Product (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Product</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    64.3%
+  </span>
+  <span class="absValue">
+    (9/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;public class Product{
+&nbsp;    private int productID;
+&nbsp;    private String productName;
+&nbsp;    private int productCategoryID;
+&nbsp;
+<b class="fc">&nbsp;    public Product(int productID, String productName, int productCategoryID) {</b>
+<b class="fc">&nbsp;        this.productID = productID;</b>
+<b class="fc">&nbsp;        this.productName = productName;</b>
+<b class="fc">&nbsp;        this.productCategoryID = productCategoryID;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Product() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Product(int productID, String productName) {</b>
+<b class="fc">&nbsp;        this.productID = productID;</b>
+<b class="fc">&nbsp;        this.productName = productName;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public Product(int productID) {</b>
+<b class="nc">&nbsp;        this.productID = productID;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getProductName() {
+&nbsp;
+<b class="nc">&nbsp;        return productName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getProductID() {
+&nbsp;
+<b class="fc">&nbsp;        return productID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public  int getProductCategoryID(){
+<b class="nc">&nbsp;        return productCategoryID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return this.productName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

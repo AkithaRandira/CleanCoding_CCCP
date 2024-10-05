@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StockItemController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Controller</a>
+</div>
+
+<h1>Coverage Summary for Class: StockItemController (Controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockItemController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">StockItemController$AddBatchItemListener</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Controller;
+&nbsp;
+&nbsp;import core.StockItemRepository;
+&nbsp;import core.Stock;
+&nbsp;import core.Product;
+&nbsp;import core.ProductRepository; // Import ProductRepository
+&nbsp;import View.StockItemView;
+&nbsp;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.sql.Date;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class StockItemController {</b>
+&nbsp;
+&nbsp;    private StockItemView theView;
+&nbsp;    private Stock theModel;
+&nbsp;    private StockItemRepository stockItemRepository;
+&nbsp;    private ProductRepository productRepository; // ProductRepository to fetch products
+&nbsp;
+<b class="nc">&nbsp;    public StockItemController(StockItemView theView, Stock theModel, StockItemRepository stockItemRepository, ProductRepository productRepository) {</b>
+<b class="nc">&nbsp;        this.theView = theView;</b>
+<b class="nc">&nbsp;        this.theModel = theModel;</b>
+<b class="nc">&nbsp;        this.stockItemRepository = stockItemRepository;</b>
+<b class="nc">&nbsp;        this.productRepository = productRepository;</b>
+&nbsp;
+&nbsp;        // Populate the item name dropdown
+<b class="nc">&nbsp;        initializeProductDropdown();</b>
+&nbsp;
+&nbsp;        // Add action listener for the &quot;Add&quot; button
+<b class="nc">&nbsp;        this.theView.addBatchItemListener(new AddBatchItemListener());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Populate item name dropdown with existing products
+&nbsp;    private void initializeProductDropdown() {
+<b class="nc">&nbsp;        List&lt;Product&gt; products = productRepository.getAllProducts();</b>
+<b class="nc">&nbsp;        theView.setProductDropdown(products); // Assuming setProductDropdown method is in StockItemView</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    class AddBatchItemListener implements ActionListener {</b>
+&nbsp;        public void actionPerformed(ActionEvent e) {
+&nbsp;            try {
+<b class="nc">&nbsp;                String itemCode = theView.getItemCode();</b>
+<b class="nc">&nbsp;                if (!itemCode.matches(&quot;[a-zA-Z0-9]+&quot;)) {</b>
+<b class="nc">&nbsp;                    theView.displayError(&quot;Invalid input. Please enter a valid alphanumeric item code.&quot;);</b>
+&nbsp;                    return; // Exit the method if the item code is invalid
+&nbsp;                }
+<b class="nc">&nbsp;                String batchCode = String.valueOf(theView.getBatchCode());</b>
+<b class="nc">&nbsp;                Product selectedProduct = theView.getSelectedProduct(); // Retrieve selected product from dropdown</b>
+<b class="nc">&nbsp;                Integer quantityInStock = Integer.parseInt(theView.getQuantityInStock().getText());</b>
+<b class="nc">&nbsp;                Date expiryDate = parseDate(theView.getExpiryDate());</b>
+<b class="nc">&nbsp;                Date manufactureDate = parseDate(theView.getManufactureDate());</b>
+<b class="nc">&nbsp;                Date batchDate = parseDate(theView.getBatchDate());</b>
+&nbsp;
+<b class="nc">&nbsp;                if (selectedProduct == null) {</b>
+<b class="nc">&nbsp;                    theView.displayError(&quot;Please select a product.&quot;);</b>
+&nbsp;                    return;
+&nbsp;                }
+&nbsp;
+&nbsp;                try {
+<b class="nc">&nbsp;                    stockItemRepository.addBatchItems(batchCode, itemCode, selectedProduct.getProductName(), quantityInStock, manufactureDate, expiryDate, batchDate);</b>
+<b class="nc">&nbsp;                    theView.displaySuccessMessage(&quot;Batch item added successfully for product: &quot; + selectedProduct.getProductName());</b>
+<b class="nc">&nbsp;                } catch (Exception ex) {</b>
+<b class="nc">&nbsp;                    theView.displayError(&quot;An error occurred while adding the item: &quot; + ex.getMessage());</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;            } catch (NumberFormatException ex) {</b>
+<b class="nc">&nbsp;                theView.displayError(&quot;Invalid input. Please enter valid numbers.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        private Date parseDate(String dateStr) {
+&nbsp;            try {
+<b class="nc">&nbsp;                return Date.valueOf(dateStr);</b>
+<b class="nc">&nbsp;            } catch (IllegalArgumentException ex) {</b>
+<b class="nc">&nbsp;                theView.displayError(&quot;Invalid date format. Please enter date in yyyy-MM-dd format.&quot;);</b>
+<b class="nc">&nbsp;                throw ex;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

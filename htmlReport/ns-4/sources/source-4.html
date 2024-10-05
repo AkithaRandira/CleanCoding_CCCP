@@ -1,0 +1,274 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BillGraphicalUnitInterfaceService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: BillGraphicalUnitInterfaceService (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BillGraphicalUnitInterfaceService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.3%
+  </span>
+  <span class="absValue">
+    (6/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.7%
+  </span>
+  <span class="absValue">
+    (49/60)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public class BillGraphicalUnitInterfaceService implements BillGraphicalUnitInterface {
+&nbsp;    private JComboBox&lt;String&gt; paymentStrategyComboBox;
+&nbsp;    private JFrame frame;
+&nbsp;    private JTextField tfBillSerialNumber;
+&nbsp;    private JTextField tfItemCode;
+&nbsp;    private JTextField tfQuantity;
+&nbsp;    private JTextField tfDiscount;
+&nbsp;    private JTextField tfCashTendered;
+&nbsp;    private JPanel itemsPanel;
+&nbsp;    private JScrollPane scrollPane;
+&nbsp;    private JTextField tfSubtotal;
+&nbsp;    private Map&lt;String, PaymentStrategy&gt; strategyMap;
+&nbsp;    private JButton addItemButton;
+&nbsp;    private JButton finalizeButton;
+&nbsp;
+&nbsp;    private  JTextField customerName;
+&nbsp;
+<b class="fc">&nbsp;    public BillGraphicalUnitInterfaceService(Map&lt;String, PaymentStrategy&gt; strategyMap) {</b>
+<b class="fc">&nbsp;        this.strategyMap=strategyMap;</b>
+<b class="fc">&nbsp;        createGUI(strategyMap);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JComboBox&lt;String&gt; getPaymentStrategyComboBox() {
+<b class="nc">&nbsp;        return paymentStrategyComboBox;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JFrame getFrame() {
+<b class="nc">&nbsp;        return frame;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfBillSerialNumber() {
+<b class="nc">&nbsp;        return tfBillSerialNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfItemCode() {
+<b class="fc">&nbsp;        return tfItemCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfQuantity() {
+<b class="fc">&nbsp;        return tfQuantity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfDiscount() {
+<b class="nc">&nbsp;        return tfDiscount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfCashTendered() {
+<b class="nc">&nbsp;        return tfCashTendered;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JPanel getItemsPanel() {
+<b class="nc">&nbsp;        return itemsPanel;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JScrollPane getScrollPane() {
+<b class="nc">&nbsp;        return scrollPane;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getTfSubtotal() {
+<b class="nc">&nbsp;        return tfSubtotal;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Map&lt;String, PaymentStrategy&gt; getStrategyMap() {
+<b class="nc">&nbsp;        return strategyMap;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addItemListener(ActionListener listener) {
+<b class="fc">&nbsp;        addItemButton.addActionListener(listener);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void finalizeBillListener(ActionListener listener) {
+<b class="fc">&nbsp;        finalizeButton.addActionListener(listener);</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JTextField getCustomerName() {
+<b class="nc">&nbsp;        return customerName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setCustomerName(JTextField customerName) {
+<b class="nc">&nbsp;        this.customerName = customerName;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void createGUI(Map&lt;String, PaymentStrategy&gt; strategyMap) {
+<b class="fc">&nbsp;        frame = new JFrame(&quot;POS&quot;);</b>
+<b class="fc">&nbsp;        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</b>
+<b class="fc">&nbsp;        frame.setSize(800, 600);</b>
+<b class="fc">&nbsp;        frame.setResizable(true);</b>
+&nbsp;
+<b class="fc">&nbsp;        JPanel panel = new JPanel();</b>
+<b class="fc">&nbsp;        panel.setLayout(new GridLayout(0, 2, 10, 10));</b>
+<b class="fc">&nbsp;        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Bill Serial Number:&quot;));</b>
+<b class="fc">&nbsp;        tfBillSerialNumber = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(tfBillSerialNumber);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Item Code:&quot;));</b>
+<b class="fc">&nbsp;        tfItemCode = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(tfItemCode);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Quantity:&quot;));</b>
+<b class="fc">&nbsp;        tfQuantity = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(tfQuantity);</b>
+&nbsp;
+<b class="fc">&nbsp;        addItemButton = new JButton(&quot;Add Item&quot;);</b>
+<b class="fc">&nbsp;        panel.add(addItemButton);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Customer Name:&quot;));</b>
+<b class="fc">&nbsp;        customerName = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(customerName);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Select Payment Method:&quot;));</b>
+<b class="fc">&nbsp;        paymentStrategyComboBox = new JComboBox&lt;&gt;(this.strategyMap.keySet().toArray(new String[0]));</b>
+<b class="fc">&nbsp;        panel.add(paymentStrategyComboBox);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Discount:&quot;));</b>
+<b class="fc">&nbsp;        tfDiscount = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(tfDiscount);</b>
+&nbsp;
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Enter Cash Tendered:&quot;));</b>
+<b class="fc">&nbsp;        tfCashTendered = new JTextField(20);</b>
+<b class="fc">&nbsp;        panel.add(tfCashTendered);</b>
+&nbsp;
+<b class="fc">&nbsp;        finalizeButton = new JButton(&quot;Finalize Bill&quot;);</b>
+<b class="fc">&nbsp;        panel.add(finalizeButton);</b>
+&nbsp;
+<b class="fc">&nbsp;        tfSubtotal = new JTextField(20);</b>
+<b class="fc">&nbsp;        tfSubtotal.setEditable(false);</b>
+<b class="fc">&nbsp;        panel.add(new JLabel(&quot;Subtotal:&quot;));</b>
+<b class="fc">&nbsp;        panel.add(tfSubtotal);</b>
+&nbsp;
+<b class="fc">&nbsp;        itemsPanel = new JPanel();</b>
+<b class="fc">&nbsp;        itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));</b>
+<b class="fc">&nbsp;        scrollPane = new JScrollPane(itemsPanel);</b>
+&nbsp;
+<b class="fc">&nbsp;        frame.add(panel, BorderLayout.NORTH);</b>
+<b class="fc">&nbsp;        frame.add(scrollPane, BorderLayout.CENTER);</b>
+&nbsp;
+<b class="fc">&nbsp;        frame.setVisible(true);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

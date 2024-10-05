@@ -1,0 +1,217 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.DriverManager;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;public class Main {</b>
+&nbsp;    public static void main(String[] args) throws SQLException {
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="nc">&nbsp;            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/syos_system&quot;, &quot;root&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;\n[INFO] Database connection established successfully.&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (ClassNotFoundException e) {</b>
+<b class="nc">&nbsp;            System.err.println(&quot;[ERROR] MySQL JDhere is the BC Driver not found: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.err.println(&quot;[ERROR] Error establishing database connection: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;        while (true) {
+<b class="nc">&nbsp;            System.out.println(&quot;\n=== MAIN MENU ===&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;1. Reports Menu&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;2. Point of Sales (POS) Menu&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;3. Exit&quot;);</b>
+<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice: &quot;);</b>
+<b class="nc">&nbsp;            int choice = scanner.nextInt();</b>
+&nbsp;
+<b class="nc">&nbsp;            switch (choice) {</b>
+&nbsp;                case 1:
+<b class="nc">&nbsp;                    showReportsMenu();</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case 2:
+<b class="nc">&nbsp;                    showPointOfSalesMenu();</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                case 3:
+<b class="nc">&nbsp;                    System.exit(0);</b>
+&nbsp;                    break;
+&nbsp;
+&nbsp;                default:
+<b class="nc">&nbsp;                    System.out.println(&quot;[ERROR] Invalid choice. Please try again.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void showPointOfSalesMenu() {
+<b class="nc">&nbsp;        Scanner scanner1 = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;MENU &quot; +</b>
+&nbsp;                &quot;1. Add Bill &quot; +
+&nbsp;                &quot;2. Customer Management &quot; +
+&nbsp;                &quot;3. Product Management &quot; +
+&nbsp;                &quot;4. Stock Management &quot; +
+&nbsp;                &quot;5. Shelf Management &quot; +
+&nbsp;                &quot;6. Stock to Shelf Check&quot;);
+&nbsp;
+<b class="nc">&nbsp;        int choice1 = scanner1.nextInt();</b>
+<b class="nc">&nbsp;        PointOfSalesMenu pointOfSalesMenu = new PointOfSalesMenu();</b>
+<b class="nc">&nbsp;        PointOfSales pointOfSales = pointOfSalesMenu.getInterface(choice1);</b>
+<b class="nc">&nbsp;        pointOfSales.getInterface();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void showReportsMenu() {
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Print report:&quot; +</b>
+&nbsp;                &quot;1. Stock Report&quot; +
+&nbsp;                &quot;2. Re-order Report&quot; +
+&nbsp;                &quot;3. Bill Report&quot; +
+&nbsp;                &quot;4. Sales Report&quot; +
+&nbsp;                &quot;5. End of Day Report&quot;);
+<b class="nc">&nbsp;        int choice = scanner.nextInt();</b>
+<b class="nc">&nbsp;        ReportFacade reportFacade = new ReportFacade();</b>
+&nbsp;
+<b class="nc">&nbsp;        switch (choice) {</b>
+&nbsp;            case 1:
+<b class="nc">&nbsp;                reportFacade.generateStockReport();</b>
+&nbsp;                break;
+&nbsp;            case 2:
+<b class="nc">&nbsp;                reportFacade.generateReOrderReport();</b>
+&nbsp;                break;
+&nbsp;            case 3:
+<b class="nc">&nbsp;                reportFacade.generateBillReport();</b>
+&nbsp;                break;
+&nbsp;            case 4:
+<b class="nc">&nbsp;                reportFacade.generateSalesReport();</b>
+&nbsp;                break;
+&nbsp;            case 5:
+<b class="nc">&nbsp;                reportFacade.generateEndOfDayReport();</b>
+&nbsp;                break;
+&nbsp;            default:
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid choice&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>

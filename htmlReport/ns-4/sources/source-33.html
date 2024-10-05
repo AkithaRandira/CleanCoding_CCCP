@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StockItemRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: StockItemRepository (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockItemRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import database.Database;
+&nbsp;
+&nbsp;import java.sql.*;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class StockItemRepository {
+&nbsp;
+&nbsp;    private final Database database;
+<b class="nc">&nbsp;    public StockItemRepository(Database database){</b>
+<b class="nc">&nbsp;        this.database=database;</b>
+&nbsp;    }
+&nbsp;    public void addBatchItems(String batchCode, String itemCode, String itemName, Integer quantityInStock, Date manufactureDate, Date expiryDate, Date batchDate)
+&nbsp;    {
+&nbsp;
+<b class="nc">&nbsp;        String SQL_INSERT = &quot;INSERT INTO stockitem (batchCode, itemCode,itemname, quantityInStock, manufacturedate, expirydate, batchdate) VALUES (?,  ?, ?, ?, ?,?,?)&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        try (Connection conn = database.connect();</b>
+<b class="nc">&nbsp;             PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT)) {</b>
+&nbsp;
+<b class="nc">&nbsp;            pstmt.setString(1, batchCode);</b>
+<b class="nc">&nbsp;            pstmt.setString(2, itemCode);</b>
+<b class="nc">&nbsp;            pstmt.setString(3, itemName);</b>
+<b class="nc">&nbsp;            pstmt.setInt(4, quantityInStock);</b>
+<b class="nc">&nbsp;            pstmt.setDate(5, manufactureDate);</b>
+<b class="nc">&nbsp;            pstmt.setDate(6, expiryDate);</b>
+<b class="nc">&nbsp;            pstmt.setDate(7, batchDate);</b>
+&nbsp;
+<b class="nc">&nbsp;            pstmt.executeUpdate();</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Error adding Batch Item to database: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    public List&lt;Stock&gt; retrieveBatchItems() {
+<b class="nc">&nbsp;        List&lt;Stock&gt; stocks = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        String SQL_SELECT = &quot;SELECT * FROM stockitem&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        try (Connection conn = database.connect();</b>
+<b class="nc">&nbsp;             PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT)) {</b>
+<b class="nc">&nbsp;            ResultSet rs = pstmt.executeQuery();</b>
+<b class="nc">&nbsp;            while (rs.next()) {</b>
+<b class="nc">&nbsp;                int stockItemId = rs.getInt(&quot;stockItemId&quot;);</b>
+<b class="nc">&nbsp;                String batchCode = rs.getString(&quot;batchCode&quot;);</b>
+<b class="nc">&nbsp;                String itemName = rs.getString(&quot;itemName&quot;);</b>
+<b class="nc">&nbsp;                String itemCode = rs.getString(&quot;itemCode&quot;);</b>
+<b class="nc">&nbsp;                int quantityInStock = rs.getInt(&quot;quantityInStock&quot;);</b>
+<b class="nc">&nbsp;                Date manufactureDate = rs.getDate(&quot;manufactureDate&quot;);</b>
+<b class="nc">&nbsp;                Date expiryDate = rs.getDate(&quot;expiryDate&quot;);</b>
+<b class="nc">&nbsp;                Date batchDate = rs.getDate(&quot;batchDate&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                stocks.add(new Stock(stockItemId, batchCode, itemName, itemCode, quantityInStock, expiryDate, manufactureDate, batchDate));</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Error retrieving batch items from database: &quot; + e.getMessage());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return stocks;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-04 22:19</div>
+</div>
+</body>
+</html>
