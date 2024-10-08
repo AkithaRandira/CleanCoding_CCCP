@@ -30,9 +30,19 @@ public class ItemDetailsService {
                     Integer productId = rs.getInt("productid");
                     String itemDescription = rs.getString("itemdescription");
                     double unitPrice = rs.getDouble("unitprice");
+
+
                     Product product = productDetailsService.fetchProductDetails(productId);
+                    if (product == null) {
+                        System.out.println("Unable to fetch product details for Product ID: " + productId);
+
+                        return null;
+                    }
+
 
                     item = new Item(itemCode, itemDescription, unitPrice, product);
+                } else {
+                    System.out.println("Item not found with item code: " + itemCode);
                 }
             }
         } catch (SQLException e) {
@@ -40,5 +50,6 @@ public class ItemDetailsService {
         }
         return item;
     }
+
 
 }

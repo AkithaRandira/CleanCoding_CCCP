@@ -50,10 +50,10 @@ public class BillDirector implements BillDirectorInterface {
     @Override
     public void addItem() {
         try {
-            String itemCode = billGraphicalUnitInterfaceService.getTfItemCode().getText(); // Getting itemCode as String
+            String itemCode = billGraphicalUnitInterfaceService.getTfItemCode().getText();
             int quantity = Integer.parseInt(billGraphicalUnitInterfaceService.getTfQuantity().getText());
 
-            // Fetching item details using itemCode as String
+
             Item item = itemDetailsService.fetchItemDetails(itemCode);
 
             if (item != null) {
@@ -65,13 +65,17 @@ public class BillDirector implements BillDirectorInterface {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), "Invalid input. Please enter valid numbers for item code and quantity.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(billGraphicalUnitInterfaceService.getFrame(), "An error occurred while adding the item.");
+            e.printStackTrace();
         }
     }
 
+
     @Override
     public void addItemToBill(Item item, int quantity) {
-        String itemCode = item.getItemCode(); // Directly use itemCode as String
-        String itemName = item.getProduct().getProductName();
+        String itemCode = item.getItemCode();
+        String itemName = (item.getProduct() != null) ? item.getProduct().getProductName() : "Unknown Product";
         double totalPrice = item.getUnitPrice() * quantity;
         totalQuantitiesSold += quantity;
         subTotal += totalPrice;

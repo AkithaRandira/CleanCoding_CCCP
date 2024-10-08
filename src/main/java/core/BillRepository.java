@@ -11,7 +11,7 @@ public class BillRepository {
     private List<Bill> bills = new ArrayList<>();
 
     public List<Bill> loadAllBills() {
-        String sql = "SELECT * FROM bill";
+        String sql = "SELECT b.*, c.customerName FROM bill b JOIN customer c ON b.customerid = c.customerid";
         String sqlItems = "SELECT * FROM billitem WHERE billserialnumber = ?";
 
         try (Connection conn = Database.connect();
@@ -28,15 +28,14 @@ public class BillRepository {
                 Date dateOfBill = rs.getDate("dateofbill");
                 int totalQuantitiesSold = rs.getInt("totalquantitiessold");
                 String paymentStrategy = rs.getString("paymentmethod");
-                String customerName = rs.getString("customername");
+                String customerName = rs.getString("customerName");
 
                 List<BillItem> billItems = new ArrayList<>();
                 try (PreparedStatement ps = conn.prepareStatement(sqlItems)) {
                     ps.setInt(1, billSerialNumber);
                     try (ResultSet rsItems = ps.executeQuery()) {
                         while (rsItems.next()) {
-                            int itemCode = rsItems.getInt("itemcode");
-
+                            String itemCode = rsItems.getString("itemcode");
                             int quantity = rsItems.getInt("qtyperitem");
                             double unitPrice = rsItems.getDouble("priceperitem");
                             double totalPrice = rsItems.getDouble("totalamount");

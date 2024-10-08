@@ -4,6 +4,7 @@ import database.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BillSaveService implements BillDatabaseServiceInterface {
@@ -11,7 +12,7 @@ public class BillSaveService implements BillDatabaseServiceInterface {
     @Override
     public void saveBill(Bill bill) {
 
-        String billSQL = "INSERT INTO bill (billSerialNumber, dateOfBill, subTotal, discount, netTotal, cashTendered, changeAmount, totalQuantitiesSold,paymentMethod,customername) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?,?)";
+        String billSQL = "INSERT INTO bill (billSerialNumber, dateOfBill, subTotal, discount, netTotal, cashTendered, changeAmount, totalQuantitiesSold,paymentMethod,customerid) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?,?)";
         String billItemSQL = "INSERT INTO billItem (billSerialNumber, itemCode, qtyperitem, priceperitem, totalamount) VALUES (?, ?, ?, ?, ?)";
         String updateItemQty = "UPDATE item SET qtyonshelf = qtyonshelf - ? WHERE itemcode = ?";
 
@@ -32,7 +33,8 @@ public class BillSaveService implements BillDatabaseServiceInterface {
             billStmt.setDouble(7, bill.getChangeAmount());
             billStmt.setInt(8,bill.getTotalQuantitiesSold());
             billStmt.setString(9, bill.getPaymentMethod());
-            billStmt.setString(10, bill.getCustomerName());
+            int customerId = fetchCustomerIdByName(bill.getCustomerName());
+            billStmt.setInt(10, customerId);
             billStmt.executeUpdate();
 
             // Insert bill items
@@ -61,4 +63,19 @@ public class BillSaveService implements BillDatabaseServiceInterface {
             }
         }
     }
+
+    private int fetchCustomerIdByName(String customerName) throws SQLException {
+        String query = "SELECT customerid FROM customer WHERE customerName = ?";
+        try (Connection conn = Database.connect();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, customerName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("customerid");
+            } else {
+                throw new SQLException("Customer not found");
+            }
+        }
+    }
+
 }
