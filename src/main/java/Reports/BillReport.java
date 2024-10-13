@@ -25,7 +25,7 @@ public class BillReport extends Report  {
     protected void createReport() {
 
 
-        System.out.println("Creating Bill Report");
+        System.out.println("========Creating Bill Report========");
         for(Bill bill: bills){
             System.out.println("Bill Serial Number: "+bill.getBillSerialNumber());
             System.out.println("Net Total: "+bill.getNetTotal());

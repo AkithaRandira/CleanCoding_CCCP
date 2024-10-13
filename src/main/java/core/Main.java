@@ -58,8 +58,7 @@ public class Main {
                 "2. Customer Management " +
                 "3. Product Management " +
                 "4. Stock Management " +
-                "5. Shelf Management " +
-                "6. Stock to Shelf Check");
+                "5. Shelf Management ");
 
         int choice1 = scanner1.nextInt();
         PointOfSalesMenu pointOfSalesMenu = new PointOfSalesMenu();
@@ -69,12 +68,12 @@ public class Main {
 
     private static void showReportsMenu() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Print report:" +
-                "1. Stock Report" +
-                "2. Re-order Report" +
-                "3. Bill Report" +
-                "4. Sales Report" +
-                "5. End of Day Report");
+        System.out.println("\n=== REPORTS MENU ===");
+        System.out.println("1. Stock Report");
+        System.out.println("2. Re-order Report");
+        System.out.println("3. Bill Report");
+        System.out.println("4. Sales Report");
+        System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         ReportFacade reportFacade = new ReportFacade();
 

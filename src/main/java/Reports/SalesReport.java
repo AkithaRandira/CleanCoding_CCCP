@@ -22,7 +22,7 @@ public class SalesReport extends Report {
 
     @Override
     protected void createReport() {
-        System.out.println("Creating Sales Report");
+        System.out.println("========Creating Sales Report========");
         double totalRevenue=0.00;
 
 

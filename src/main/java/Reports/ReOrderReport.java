@@ -22,11 +22,11 @@ public class ReOrderReport extends Report {
 
     @Override
     public void createReport() {
-        System.out.println("Creating ReOrder Report");
+        System.out.println("========Creating ReOrder Report========");
         for (Stock stock : stocks) {
-            System.out.println("Batch Code: " + stock.getBatchCode());
-            System.out.println("Item Name: " + stock.getItemName());
-            System.out.println("Item Code: " + stock.getItemCode());
+            System.out.println("Item Name: " + stock.getBatchCode());
+            System.out.println("Item Code: " + stock.getItemName());
+            System.out.println("Batch Code: " + stock.getItemCode());
             System.out.println("Quantity in Stock: " + stock.getQuantityInStock());
             System.out.println("---------------------------------------------");
         }
