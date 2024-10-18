@@ -57,8 +57,7 @@ public class Main {
                 "1. Add Bill " +
                 "2. Customer Management " +
                 "3. Product Management " +
-                "4. Stock Management " +
-                "5. Shelf Management ");
+                "4. Stock Management ");
 
         int choice1 = scanner1.nextInt();
         PointOfSalesMenu pointOfSalesMenu = new PointOfSalesMenu();
